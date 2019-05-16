@@ -1,0 +1,71 @@
+package com.infopulse.entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.List;
+
+import static javax.persistence.DiscriminatorType.STRING;
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "clients")
+@Inheritance(strategy = TABLE_PER_CLASS)
+//@DiscriminatorColumn(name = "Typecli", discriminatorType = STRING, length = 20)
+//@DiscriminatorValue("CLIENT")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "myregion")
+@DynamicUpdate
+public class Client {
+    //single primary key
+    @Id
+    @GenericGenerator(name="increment", strategy = "increment")
+    @GeneratedValue(generator="increment")
+    @Basic
+    private Long id;
+
+    // complex primary key
+//    @EmbeddedId
+//    private ComplexKey key;
+
+    @Column(name = "cname", unique = false, nullable = false, length = 255)
+    @Basic
+    private String name;
+
+    @Column(name = "surename", nullable = false)
+    private String surename;
+
+    @Type(type = "com.infopulse.entity.AddressType")
+    @Column(name = "addr")
+    private Address address;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
+
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Telephone telephone;
+
+    @Formula(" concat(cname, '-', surename) ")
+    private String nameSurename;
+
+//    @ManyToMany(mappedBy = "clients")
+//    private List<Bank> banks;
+
+    @OneToMany(mappedBy = "client")
+    private List<ClientBank> clientBanks;
+
+    @PostPersist
+    @PostLoad
+    public void mymethod() {
+        System.out.println("KKKKKKKKKKKK");
+    }
+}

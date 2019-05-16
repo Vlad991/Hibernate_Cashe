@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="org.hibernate.tutorial.jpa/Hibernate" uuid="bfc177ed-9265-4c78-9ef9-0ec44fa848e3">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+/Users/kuzmavladislavvladimirovic/Documents/2019/Java3/Hibernate_Cashe/src/main/resources/META-INF/persistence.xml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5434/hibernatedb</jdbc-url>
+    </data-source>
+  </component>
+</project>
